@@ -26,6 +26,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+    private Button PAbutton;
     private EditText txtGuess;
     private Button btnGuess;
     private int numberOfTries = 1;
@@ -41,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
             else if (guess > theNumber)
                 message = guess + " is too high. Try again";
             else {
-                message = guess + " is correct. You win after " + numberOfTries + " tries!";
+                message = guess + " is correct. You win after " + numberOfTries + " tries! Wanna play again?";
+                btnGuess.setVisibility(View.INVISIBLE);
+                PAbutton.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             message = "Enter a whole number between 1 and 100.";
@@ -49,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             lblOutput.setText(message);
             txtGuess.requestFocus();
             txtGuess.selectAll();
-            numberOfTries += 1;
         }
     }
     public void newGame() {
@@ -68,14 +70,24 @@ public class MainActivity extends AppCompatActivity {
         txtGuess = (EditText) findViewById(R.id.txtGuess);
         btnGuess = (Button) findViewById(R.id.btnGuess);
         lblOutput = (TextView) findViewById(R.id.lblOutput);
+        PAbutton = findViewById(R.id.PAbutton);
 
         newGame();
 
         btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                numberOfTries++;
                 checkGuess();
             }
+        });
+        PAbutton.setVisibility(View.INVISIBLE);
+        PAbutton.setOnClickListener(v -> {
+            newGame();
+            numberOfTries = 1;
+            PAbutton.setVisibility(View.INVISIBLE);
+            btnGuess.setVisibility(View.VISIBLE);
+            lblOutput.setText("Enter a number, than click Guess!");
         });
 
         txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener() {
