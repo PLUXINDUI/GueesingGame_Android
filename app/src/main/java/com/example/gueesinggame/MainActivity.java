@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button PAbutton;
     private EditText txtGuess;
     private Button btnGuess;
-    private int numberOfTries = 1;
+    private int numberOfTries = 0;
     private TextView lblOutput;
     private int theNumber;
     public void checkGuess() {
@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
         String message = "";
         try {
             int guess = Integer.parseInt(guessText);
-            if (guess < theNumber)
+            if (guess < theNumber) {
                 message = guess + " is too low. Try again.";
-            else if (guess > theNumber)
+            }
+            else if (guess > theNumber) {
                 message = guess + " is too high. Try again";
+            }
             else {
                 message = guess + " is correct. You win after " + numberOfTries + " tries! Wanna play again?";
                 btnGuess.setVisibility(View.INVISIBLE);
@@ -67,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        txtGuess = (EditText) findViewById(R.id.txtGuess);
-        btnGuess = (Button) findViewById(R.id.btnGuess);
-        lblOutput = (TextView) findViewById(R.id.lblOutput);
+        txtGuess = findViewById(R.id.txtGuess);
+        btnGuess = findViewById(R.id.btnGuess);
+        lblOutput = findViewById(R.id.lblOutput);
         PAbutton = findViewById(R.id.PAbutton);
 
         newGame();
